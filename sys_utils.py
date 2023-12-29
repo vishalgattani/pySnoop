@@ -9,6 +9,7 @@ def check_cpu_usage(threshold=50):
         logger.warning(f"High CPU usage detected: {cpu_usage}%")
     else:
         logger.info(f"CPU usage detected: {cpu_usage}%")
+    return cpu_usage
 
 
 def check_memory_usage(threshold=80):
@@ -19,6 +20,7 @@ def check_memory_usage(threshold=80):
         logger.warning(f"High memory usage detected: {memory_usage}%")
     else:
         logger.info(f"Memory usage detected: {memory_usage}%")
+    return memory_usage
 
 
 def check_disk_space(path="/", threshold=75):
@@ -27,6 +29,7 @@ def check_disk_space(path="/", threshold=75):
         logger.warning(f"Low disk space detected: {disk_usage}%")
     else:
         logger.info(f"Disk space detected: {disk_usage}%")
+    return disk_usage
 
 
 def check_network_traffic(threshold=100 * 1024 * 1024):
@@ -37,10 +40,14 @@ def check_network_traffic(threshold=100 * 1024 * 1024):
         logger.warning(f"High network traffic detected: {network_traffic:.2f} MB")
     else:
         logger.info(f"Network traffic detected: {network_traffic:.2f} MB")
+    return network_traffic
 
 
 def run_health_checks():
-    check_cpu_usage()
-    check_memory_usage()
-    check_disk_space()
-    check_network_traffic()
+    health_data = {
+        "cpu_usage": check_cpu_usage(),
+        "memory_usage": check_memory_usage(),
+        "disk_space": check_disk_space(),
+        "network_traffic": check_network_traffic(),
+    }
+    return health_data
